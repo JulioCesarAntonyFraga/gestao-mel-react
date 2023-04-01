@@ -31,6 +31,8 @@ function App() {
                 <Route path="/clientes" element={<PrivateRoute element={<Customers />} />} />
                 <Route path="/produtos" element={<PrivateRoute element={<Proudcts />} />} />
                 <Route path="/vendas" element={<PrivateRoute element={<Sales />} />} />
+
+                {/* <Route path="/produtos/:id"/> */}
               </Routes>
             </main>
           </AntdLayout>
