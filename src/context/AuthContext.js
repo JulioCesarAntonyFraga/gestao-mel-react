@@ -26,6 +26,7 @@ const AuthProvider = ({ children }) => {
       await localStorage.setItem("user", JSON.stringify(response.data.user));
       setToken(response.data.token)
       setIsAuthenticated(true);
+      localStorage.setItem('selectedItem', 1);
     }
     catch(error){
       localStorage.removeItem("token");
@@ -36,7 +37,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await localStorage.removeItem("token");
+    await localStorage.clear();
     setIsAuthenticated(false);
   };
 

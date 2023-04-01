@@ -52,6 +52,15 @@ api.interceptors.response.use(
   }
 );
 
+export const get = async (route) => {
+  try {
+    const response = await api.get(route);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const getUsers = async () => {
   try {
     const response = await api.get("/users");
