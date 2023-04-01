@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { get } from "../../services/api";
+import { get, remove } from "../../services/api";
 import generateTable from '../../components/Table';
-import { message } from 'antd';
+import { message, Button } from 'antd';
 import { useNavigate } from "react-router-dom";
 
 const ProductStockMovements = () => {
@@ -39,18 +39,20 @@ const ProductStockMovements = () => {
       }, []);
 
     const handleDelete = (id) => {
-        // setLoading(true);
-        // ApiService.delete(`${baseRoute}/${id}`).then((response) => {
-        //     ApiService.get(`${baseRoute}`).then((response => {
-        //         setData(response.data);
-        //         setLoading(false);
-        //     }))
-        //     successMessage('Deletado com sucesso')
-        // }).catch((error) => {
-        //     errorMessage('Algo deu errado')
-        //     setLoading(false);
-        // })
-        
+        setLoading(true);
+        try{
+            remove(baseRoute, id).then(() => {
+                get(baseRoute).then((response) => {
+                    setData(response);
+                    setLoading(false);
+                    successMessage('Deletado com sucesso');
+                });
+            });
+        }
+        catch{
+            errorMessage('Algo deu errado');
+            setLoading(false);
+        }
     };
     
     const handleEdit = (id) => {
@@ -81,9 +83,12 @@ const ProductStockMovements = () => {
     
     <div>
         {contextHolder}
-        <h2>
-            Movimentações De Estoque
-        </h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h2 style={{ textAlign: 'left', marginBottom: '16px' }}>Movimentações De Estoque</h2>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button type="primary">Cadastrar</Button>
+            </div>
+        </div>
         {generateTable(data, fields, loading, handleDelete, handleEdit, successMessage)}
     </div>
   )

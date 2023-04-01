@@ -61,9 +61,27 @@ export const get = async (route) => {
   }
 };
 
-export const getUsers = async () => {
+export const remove = async (route, id) => {
   try {
-    const response = await api.get("/users");
+    const response = await api.delete(`${route}/${id}`);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const post = async (route, data) => {
+  try {
+    const response = await api.post(route, data);
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const put = async (route, data, id) => {
+  try {
+    const response = await api.put(`${route}/${id}`, data);
     return response.data;
   } catch (error) {
     return Promise.reject(error);

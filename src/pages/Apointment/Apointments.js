@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { get } from "../../services/api";
+import { get, remove } from "../../services/api";
 import generateTable from '../../components/Table';
 import { message, Button } from 'antd';
 import { useNavigate } from "react-router-dom";
@@ -39,18 +39,20 @@ const Apointments = () => {
       }, []);
 
     const handleDelete = (id) => {
-        // setLoading(true);
-        // ApiService.delete(`${baseRoute}/${id}`).then((response) => {
-        //     ApiService.get(`${baseRoute}`).then((response => {
-        //         setData(response.data);
-        //         setLoading(false);
-        //     }))
-        //     successMessage('Deletado com sucesso')
-        // }).catch((error) => {
-        //     errorMessage('Algo deu errado')
-        //     setLoading(false);
-        // })
-        
+        setLoading(true);
+        try{
+            remove(baseRoute, id).then(() => {
+                get(baseRoute).then((response) => {
+                    setData(response);
+                    setLoading(false);
+                    successMessage('Deletado com sucesso');
+                });
+            });
+        }
+        catch{
+            errorMessage('Algo deu errado');
+            setLoading(false);
+        }
     };
     
     const handleEdit = (id) => {
