@@ -31,7 +31,11 @@ api.interceptors.response.use(
       try {
         var userId = JSON.parse(localStorage.getItem("user")).id;
         var refreshToken = localStorage.getItem("refreshToken");
-        const response = await axios.post(`${BASE_URL}/auth/refreshToken?userId=${userId}&refreshToken=${refreshToken}`);
+        // console.log(`${BASE_URL}/Auth/RefreshToken?UserId=${userId}&RefreshToken=${refreshToken}`);
+        const response = await axios.post(`${BASE_URL}/Auth/RefreshToken`, {} , {params: {
+          userId: userId, 
+          refreshToken: refreshToken
+        }});
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("refreshToken", response.data.refreshToken);
 
@@ -39,6 +43,7 @@ api.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${response.data.token}`;
         return api(originalRequest);
       } catch (error) {
+        console.log(error);
         // Se o refresh token falhar, remover o usuário do localStorage e redirecionar para a página de login
         localStorage.removeItem("user");
         localStorage.removeItem("token");
