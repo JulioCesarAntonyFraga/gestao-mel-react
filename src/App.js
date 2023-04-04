@@ -14,6 +14,8 @@ import Sales from './pages/Sale/Sales';
 import Proudcts from './pages/Product/Products';
 import ProductStockMovements from './pages/ProductStockMovement/ProductStockMovements';
 import Home from './pages/Home';
+import ProductForm from './pages/Product/ProductForm';
+
 function App() {
   return (
     <AuthProvider>
@@ -25,11 +27,23 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<PrivateRoute element={<Home />} />} />
                 <Route path="/usuarios" element={<PrivateRoute element={<Users />} />} />
+
                 <Route path="/clientes" element={<PrivateRoute element={<Customers />} />} />
+                {/* <Route path="/clientes/:id" element={<PrivateRoute element={<FormPage />} />} /> */}
+
                 <Route path="/atendimentos" element={<PrivateRoute element={<Apointments />} />} />
+
+
                 <Route path="/estoque" element={<PrivateRoute element={<ProductStockMovements />} />} />
+
+
                 <Route path="/clientes" element={<PrivateRoute element={<Customers />} />} />
+
+
                 <Route path="/produtos" element={<PrivateRoute element={<Proudcts />} />} />
+                <Route path="/produtos/:id" element={<PrivateRoute element={<ProductForm />} />} />
+                <Route path="/produtos/novo" element={<PrivateRoute element={<ProductForm />} />} />
+
                 <Route path="/vendas" element={<PrivateRoute element={<Sales />} />} />
 
                 {/* <Route path="/produtos/:id"/> */}

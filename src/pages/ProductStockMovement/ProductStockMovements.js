@@ -76,6 +76,7 @@ const ProductStockMovements = () => {
         {
             dataIndex: 'amount',
             title: 'Quantidade',
+            mask: 'int',
         }
       ];
 

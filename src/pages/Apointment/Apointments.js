@@ -67,7 +67,7 @@ const Apointments = () => {
         {
             dataIndex: 'dateTime',
             title: 'Data/Horário',
-            mask: 'test'
+            mask: 'timestamp'
         },
         {
             dataIndex: 'price',

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { get, remove } from "../../services/api";
 import generateTable from '../../components/Table';
 import { message, Button } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Products = () => {
     const baseRoute = '/Products';
@@ -56,7 +56,7 @@ const Products = () => {
     };
     
     const handleEdit = (id) => {
-        navigate(`/Produtos/${id}`);
+        navigate(`/produtos/${id}`);
     };
       
     const fields = [
@@ -67,6 +67,11 @@ const Products = () => {
         {
             dataIndex: 'name',
             title: 'Nome',
+        },
+        {
+            dataIndex: 'stock',
+            title: 'Estoque',
+            mask: 'int',
         },
         {
             dataIndex: 'coust',
@@ -96,7 +101,9 @@ const Products = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h2 style={{ textAlign: 'left', marginBottom: '16px' }}>Produtos</h2>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button type="primary">Cadastrar</Button>
+                <Link to="/produtos/novo">
+                    <Button type="primary">Cadastrar</Button>
+                </Link>
             </div>
         </div>
         {generateTable(data, fields, loading, handleDelete, handleEdit, successMessage)}

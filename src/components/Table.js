@@ -52,9 +52,11 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
         if (field.mask === "phone"){
           value = formatPhoneNumber(value);
         }
+        if (field.mask === "int"){
+          value = text.toFixed(0);
+        }
         if (field.mask === "timestamp"){
           const fixedDate = value.replace('Timestamp: ', '');
-          console.log(fixedDate);
           const date = new Date(fixedDate);
           value = new Intl.DateTimeFormat(['rs', 'br']).format(date);
         }

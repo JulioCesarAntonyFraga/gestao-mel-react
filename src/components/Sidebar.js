@@ -30,7 +30,7 @@ const Sidebar = () => {
   };
 
   return (
-      <Sider breakpoint="lg" collapsedWidth="0" style={{ height: '100vh', float: 'left' }}>
+      <Sider breakpoint="lg" collapsedWidth="0" style={{ height: '150vh', float: 'left' }}>
         <div className="logo" />
         <Menu theme="dark" mode="inline" onClick={handleMenuClick} selectedKeys={[selectedItem]}>
           <Menu.Item key="1">
