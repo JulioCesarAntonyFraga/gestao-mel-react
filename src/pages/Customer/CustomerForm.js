@@ -14,9 +14,9 @@ const campos = [
   { tipo: "boolean", label: "Material", key: "isRawMaterial" },
 ];
 
-const ProductForm = (props) => {
+const CustomerForm = (props) => {
   const { id } = useParams();
-  const baseRoute = 'products';
+  const baseRoute = 'customers'
 
   const handleSubmit = async (payload, isEdit) => {
     if(!isEdit){
@@ -27,7 +27,7 @@ const ProductForm = (props) => {
     }
   };
 
-  return <DynamicForm campos={campos} onSubmit={handleSubmit} id={id} baseRoute={baseRoute} redirect='produtos' />;
+  return <DynamicForm campos={campos} onSubmit={handleSubmit} id={id} baseRoute={baseRoute} redirect='clientes' />;
 };
 
-export default ProductForm;
+export default CustomerForm;
