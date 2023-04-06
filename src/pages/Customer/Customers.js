@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { get, remove } from "../../services/api";
 import generateTable from '../../components/Table';
 import { message, Button } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Customers = () => {
     const baseRoute = '/Customers';
@@ -56,7 +56,7 @@ const Customers = () => {
     };
     
     const handleEdit = (id) => {
-        navigate(`${baseRoute}/${id}`);
+        navigate(`/clientes/${id}`);
     };
       
     const fields = [
@@ -76,6 +76,7 @@ const Customers = () => {
         {
             dataIndex: 'instagram',
             title: 'Instagram',
+            prefix: '@',
         },
         {
             dataIndex: 'phoneNumber',
@@ -91,7 +92,9 @@ const Customers = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h2 style={{ textAlign: 'left', marginBottom: '16px' }}>Clientes</h2>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button type="primary">Cadastrar</Button>
+                <Link to="/clientes/novo">
+                    <Button type="primary">Cadastrar</Button>
+                </Link>
             </div>
         </div>
         {generateTable(data, fields, loading, handleDelete, handleEdit, successMessage)}

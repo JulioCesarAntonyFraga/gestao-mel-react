@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import api from "../../services/api";
 
 const campos = [
-  { inputType: "text", label: "ID", key: "id", disabled: true, },
-  { inputType: "text", label: "Nome", key: "name", maxLength: 40, required: true, minLength: 5 },
-  { inputType: "text",  tipo: "textArea", label: "Descrição", key: "description", maxLength: 250, required: false },
-  { inputType: "number", tipo: "money", label: "Custo", key: "coust", prefix: "money", required: true },
-  { inputType: "number", tipo: "money", label: "Preço de venda", key: "price", prefix: "money", required: true },
-  { inputType: "number", label: "Estoque", key: "stock", required: true },
-  { inputType: "number", tipo: "number", label: "Porcentagem De Lucro", key: "profitPercentage", prefix: "percentage", disabled: true, required: false },
-  { tipo: "boolean", label: "Material", key: "isRawMaterial" },
+  { type: "text", label: "ID", key: "id", disabled: true, },
+  { type: "text", label: "Nome", key: "name", maxLength: 40, required: true, minLength: 5 },
+  { type: "textArea", label: "Descrição", key: "description", maxLength: 250, required: false },
+  { type: "number", label: "Custo", key: "coust", prefix: "R$", required: true },
+  { type: "number", label: "Preço de venda", key: "price", prefix: "R$", required: true },
+  { type: "number", label: "Estoque", key: "stock", required: true },
+  { type: "number", label: "Porcentagem De Lucro", key: "profitPercentage", prefix: "percentage", disabled: true, required: false },
+  { type: "boolean", label: "Material", key: "isRawMaterial" },
 ];
 
 const ProductForm = (props) => {

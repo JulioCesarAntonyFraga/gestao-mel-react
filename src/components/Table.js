@@ -46,8 +46,8 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
       }
       if (field.mask) {
         if (field.mask === "date"){
-          const date = new Date(value);
-          value = new Intl.DateTimeFormat(['rs', 'br']).format(date);
+          value = new Date(value);
+          value = value.toLocaleDateString("pt-BR", {timeZone: 'UTC'});
         }
         if (field.mask === "phone"){
           value = formatPhoneNumber(value);

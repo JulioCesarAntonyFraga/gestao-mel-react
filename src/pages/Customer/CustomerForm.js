@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import api from "../../services/api";
 
 const campos = [
-  { inputType: "text", label: "ID", key: "id", disabled: true, },
-  { inputType: "text", label: "Nome", key: "name", maxLength: 40, required: true, minLength: 5 },
-  { inputType: "text",  tipo: "textArea", label: "Descrição", key: "description", maxLength: 250, required: false },
-  { inputType: "number", tipo: "money", label: "Custo", key: "coust", prefix: "money", required: true },
-  { inputType: "number", tipo: "money", label: "Preço de venda", key: "price", prefix: "money", required: true },
-  { inputType: "number", label: "Estoque", key: "stock", required: true },
-  { inputType: "number", tipo: "number", label: "Porcentagem De Lucro", key: "profitPercentage", prefix: "percentage", disabled: true, required: false },
-  { tipo: "boolean", label: "Material", key: "isRawMaterial" },
+  { type: "text", label: "ID", key: "id", disabled: true, },
+  { type: "text", label: "Nome", key: "name", maxLength: 40, required: true, minLength: 5 },
+  { type: "text", label: "Instagram", key: "instagram", prefix: '@', maxLength: 25, required: true },
+  { type: "number", label: "Celular", key: "phoneNumber", required: true, maxLength: 11, minLength: 10 },
+  { type: "date", label: "Data de Nascimento", key: "dob", required: true },
+  { type: "boolean", label: "Seguindo No Instagram", key: "isFollowingInstagram", },
+  { type: "file", label: "Foto De Perfil", key: "profitPercentage" },
+  { type: "textArea", label: "Observações", key: "observations" },
 ];
 
 const CustomerForm = (props) => {

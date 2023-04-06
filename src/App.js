@@ -15,6 +15,7 @@ import Proudcts from './pages/Product/Products';
 import ProductStockMovements from './pages/ProductStockMovement/ProductStockMovements';
 import Home from './pages/Home';
 import ProductForm from './pages/Product/ProductForm';
+import CustomerForm from './pages/Customer/CustomerForm';
 
 function App() {
   return (
@@ -38,7 +39,8 @@ function App() {
 
 
                 <Route path="/clientes" element={<PrivateRoute element={<Customers />} />} />
-
+                <Route path="/clientes/:id" element={<PrivateRoute element={<CustomerForm />} />} />
+                <Route path="/clientes/novo" element={<PrivateRoute element={<CustomerForm />} />} />
 
                 <Route path="/produtos" element={<PrivateRoute element={<Proudcts />} />} />
                 <Route path="/produtos/:id" element={<PrivateRoute element={<ProductForm />} />} />
