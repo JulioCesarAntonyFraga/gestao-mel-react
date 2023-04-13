@@ -1,6 +1,7 @@
 import { Table } from 'antd';
 import { Popconfirm } from 'antd';
 import { CheckCircleTwoTone, CloseCircleTwoTone, InfoCircleOutlined, DeleteTwoTone, CopyOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, successMessage) {
 
@@ -30,6 +31,16 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
   const columns = fieldsList.map(field => ({
     title: field.title,
     dataIndex: field.dataIndex,
+    sorter: (a, b) => {
+      if (field.sorterType === 'numeric') {
+        return a[field.dataIndex] - b[field.dataIndex];
+      } else if (field.sorterType === 'text') {
+        return a[field.dataIndex].localeCompare(b[field.dataIndex]);
+      } else if (field.sorterType === 'date') {
+        return moment(a[field.dataIndex]).unix() - moment(b[field.dataIndex]).unix();
+      }
+      return 0;
+    },
     render: (text, record) => {
       let value = text;
       if (typeof text === 'number') {
@@ -98,7 +109,7 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
   columns.push(actionColumn);
 
   return (
-    <Table dataSource={dataList} columns={columns} loading={loading} responsive pagination={{ pageSize: 10 }} scroll={{ x: 'max-content' }} />
+    <Table dataSource={dataList} columns={columns} loading={loading} responsive pagination={{ pageSize: 10 }} scroll={{ x: 'max-content' }} sortDirections={['ascend', 'descend']} defaultSortOrder="ascend" />
   );
 }
 

@@ -67,16 +67,19 @@ const Apointments = () => {
         {
             dataIndex: 'date',
             title: 'Data',
-            mask: 'date'
+            mask: 'date',
+            sorterType: 'date',
         },
         {
             dataIndex: 'time',
             title: 'Horário',
+            sorterType: 'text',
         },
         {
             dataIndex: 'price',
             title: 'Valor',
-            prefix: 'R$'
+            prefix: 'R$',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'payed',

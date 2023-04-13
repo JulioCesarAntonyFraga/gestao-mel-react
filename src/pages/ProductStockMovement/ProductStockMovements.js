@@ -68,14 +68,17 @@ const ProductStockMovements = () => {
             dataIndex: 'createdAt',
             title: 'Data',
             mask: 'timestamp',
+            sorterType: 'date',
         },
         {
             dataIndex: 'typeName',
-            title: 'Tipo'
+            title: 'Tipo',
+            sorterType: 'text',
         },
         {
             dataIndex: 'amount',
             title: 'Quantidade',
+            sorterType: 'numeric',
             mask: 'int',
         }
       ];

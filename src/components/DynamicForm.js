@@ -7,7 +7,7 @@ import api from "../services/api";
 // import moment from "moment";
 // import 'moment/locale/pt-br';
 
-const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, readOnly }) => {
+const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, isReadOnly }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
   const [disableAll, setDisableAll] = useState(false);
@@ -17,10 +17,9 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, readOnly }) => {
 
   React.useEffect(() => {
     if (id) {
-      if(readOnly)
+      if(isReadOnly)
         setDisableAll(true);
       
-      console.log(readOnly, disableAll);
       api.get(`/${baseRoute}/${id}`).then((response) => {
         const data = response.data;
         const updatedFields = {};
@@ -68,7 +67,7 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, readOnly }) => {
         <Form layout="vertical" form={form} onFinish={handleSubmit}>
           <Row gutter={[16, 16]}>
           {campos.map((campo) => {
-              const { type, label, key, prefix, disabled, required, maxLength, minLength, options, placeholder } = campo;
+              const { type, label, key, prefix, disabled, required, maxLength, minLength, options, placeholder, readOnly } = campo;
               var prefixSymbol = null;
               if(prefix){
                 if(prefix === "percentage")
@@ -88,12 +87,12 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, readOnly }) => {
                             disableAll ? <Checkbox disabled={true} /> : <Checkbox disabled={disabled} />
                           ):
                           type === "textArea" ? (
-                            disableAll ? <TextArea disabled={true} rows={4} /> : <TextArea disabled={disabled} rows={4} />
+                            disableAll ? <TextArea readOnly rows={4} /> : <TextArea disabled={disabled} rows={4} readOnly={readOnly} />
                           ):
                           type === "select" ? (
                             disableAll ? <Select disabled={true} options={options} placeholder={placeholder} /> : <Select disabled={disabled} options={options} placeholder={placeholder} /> 
                           ):
-                          disableAll ? <Input type={type} disabled={true} prefix={prefixSymbol} /> : <Input type={type} disabled={disabled} prefix={prefixSymbol} />
+                          disableAll ? <Input type={type} readOnly prefix={prefixSymbol} /> : <Input type={type} disabled={disabled} prefix={prefixSymbol} readOnly={readOnly} />
                         }
                   </Form.Item>
                 </Col>

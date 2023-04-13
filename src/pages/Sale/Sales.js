@@ -68,26 +68,31 @@ const Sales = () => {
             dataIndex: 'createdAt',
             title: 'Data',
             mask: 'timestamp',
+            sorterType: 'date',
         },
         {
             dataIndex: 'totalCoust',
             title: 'Custo total',
-            prefix: 'R$'
+            prefix: 'R$',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'totalPrice',
             title: 'Preço de venda total',
-            prefix: 'R$'
+            prefix: 'R$',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'discountPercentage',
             title: 'Desconto',
-            prefix: '%'
+            prefix: '%',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'profit',
             title: 'Lucro',
-            prefix: 'R$'
+            prefix: 'R$',
+            sorterType: 'numeric',
         },
       ];
 

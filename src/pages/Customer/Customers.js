@@ -67,20 +67,24 @@ const Customers = () => {
         {
             dataIndex: 'name',
             title: 'Nome',
+            sorterType: 'text',
         },
         {
             dataIndex: 'dob',
             title: 'Data Nascimento',
             mask: 'date',
+            sorterType: 'date',
         },
         {
             dataIndex: 'instagram',
             title: 'Instagram',
+            sorterType: 'text',
             prefix: '@',
         },
         {
             dataIndex: 'phoneNumber',
             title: 'Telefone',
+            sorterType: 'text',
             mask: 'phone'
         }
       ];

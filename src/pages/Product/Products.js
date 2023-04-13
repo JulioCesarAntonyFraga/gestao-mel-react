@@ -57,8 +57,8 @@ const Products = () => {
     
     const handleEdit = (id) => {
         navigate(`/produtos/${id}`);
-    };
-      
+    }
+
     const fields = [
         {
             dataIndex: 'id',
@@ -67,26 +67,31 @@ const Products = () => {
         {
             dataIndex: 'name',
             title: 'Nome',
+            sorterType: 'text',
         },
         {
             dataIndex: 'stock',
             title: 'Estoque',
             mask: 'int',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'coust',
             title: 'Custo',
-            prefix: 'R$'
+            prefix: 'R$',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'price',
             title: 'Preço de venda',
-            prefix: 'R$'
+            prefix: 'R$',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'profitPercentage',
             title: 'Porcentagem de lucro',
-            prefix: '%'
+            prefix: '%',
+            sorterType: 'numeric',
         },
         {
             dataIndex: 'isRawMaterial',
