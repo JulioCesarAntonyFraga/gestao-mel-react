@@ -56,7 +56,7 @@ const Sales = () => {
     };
     
     const handleEdit = (id) => {
-        navigate(`${baseRoute}/${id}`);
+        navigate(`/vendas/${id}`);
     };
       
     const fields = [

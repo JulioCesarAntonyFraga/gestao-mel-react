@@ -17,6 +17,8 @@ import Home from './pages/Home';
 import ProductForm from './pages/Product/ProductForm';
 import CustomerForm from './pages/Customer/CustomerForm';
 import ApointmentForm from './pages/Apointment/ApointmentForm';
+import ProductStockMovementForm from './pages/ProductStockMovement/ProductStockMovementForm';
+import SaleForm from './pages/Sale/SaleForm';
 
 function App() {
   return (
@@ -30,15 +32,13 @@ function App() {
                 <Route path="/" element={<PrivateRoute element={<Home />} />} />
                 <Route path="/usuarios" element={<PrivateRoute element={<Users />} />} />
 
-                <Route path="/clientes" element={<PrivateRoute element={<Customers />} />} />
-                {/* <Route path="/clientes/:id" element={<PrivateRoute element={<FormPage />} />} /> */}
-
                 <Route path="/atendimentos" element={<PrivateRoute element={<Apointments />} />} />
                 <Route path="/atendimentos/:id" element={<PrivateRoute element={<ApointmentForm />} />} />
                 <Route path="/atendimentos/novo" element={<PrivateRoute element={<ApointmentForm />} />} />
 
                 <Route path="/estoque" element={<PrivateRoute element={<ProductStockMovements />} />} />
-
+                <Route path="/estoque/:id" element={<PrivateRoute element={<ProductStockMovementForm />} />} />
+                <Route path="/estoque/novo" element={<PrivateRoute element={<ProductStockMovementForm />} />} />
 
                 <Route path="/clientes" element={<PrivateRoute element={<Customers />} />} />
                 <Route path="/clientes/:id" element={<PrivateRoute element={<CustomerForm />} />} />
@@ -49,6 +49,8 @@ function App() {
                 <Route path="/produtos/novo" element={<PrivateRoute element={<ProductForm />} />} />
 
                 <Route path="/vendas" element={<PrivateRoute element={<Sales />} />} />
+                <Route path="/vendas/:id" element={<PrivateRoute element={<SaleForm />} />} />
+                <Route path="/vendas/novo" element={<PrivateRoute element={<SaleForm />} />} />
 
                 {/* <Route path="/produtos/:id"/> */}
               </Routes>

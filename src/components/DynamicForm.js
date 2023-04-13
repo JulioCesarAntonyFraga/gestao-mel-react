@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Checkbox, Row, Col, message, Spin, Select } from "antd";
-import {PercentageOutlined} from "@ant-design/icons"
+import {PercentageOutlined, LeftCircleOutlined} from "@ant-design/icons"
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 // import moment from "moment";
 // import 'moment/locale/pt-br';
 
-const DynamicForm = ({ campos, onSubmit, baseRoute, redirect }) => {
+const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, readOnly }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
+  const [disableAll, setDisableAll] = useState(false);
   const { id } = useParams();
   const { TextArea } = Input;
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (id) {
+      if(readOnly)
+        setDisableAll(true);
+      
+      console.log(readOnly, disableAll);
       api.get(`/${baseRoute}/${id}`).then((response) => {
         const data = response.data;
         const updatedFields = {};
@@ -57,50 +62,52 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect }) => {
   };
 
   return (
-    <Spin spinning={loading}>
-      <Form layout="vertical" form={form} onFinish={handleSubmit}>
-        <Row gutter={[16, 16]}>
-        {campos.map((campo) => {
-            const { type, label, key, prefix, disabled, required, maxLength, minLength, options, placeholder } = campo;
-            var prefixSymbol = null;
-            if(prefix){
-              if(prefix === "percentage")
-                prefixSymbol = <PercentageOutlined />
-              else
-                prefixSymbol = prefix;
-            }
-            return (
-              <Col xs={24} md={12} key={campo.key}>
-                <Form.Item key={key} name={key} label={label} valuePropName={type === "boolean" ? "checked" : "value"} rules={[
-                  required ? { required: required, message: "Por favor, preencha o campo " + label } : null,
-                  maxLength ? { max: maxLength, message: 'Número máximo de caracteres excedido: ' + maxLength } : null,
-                  minLength ? { min: minLength, message: 'Número mínimo de caracteres requerido: ' + minLength} : null,
-                  ]}>
-                    
-                      {
-                        type === "boolean" ? (
-                          <Checkbox />
-                        ):
-                        type === "textArea" ? (
-                          <TextArea disabled={disabled} rows={4} />
-                        ):
-                        type === "select" ? (
-                          <Select disabled={disabled} options={options} placeholder={placeholder} />
-                        ):
-                        <Input type={type} disabled={disabled} prefix={prefixSymbol} />
-                      }
-                </Form.Item>
-              </Col>
-            );
-          })}
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading}>
-              Enviar
-            </Button>
-          </Form.Item>
-        </Row>
-      </Form>
-    </Spin>
+    <>
+      <Button icon={<LeftCircleOutlined />} onClick={() => navigate(-1)} style={{border: 'none', background: 'none', textAlign: 'left', boxShadow: 'none', fontSize: '30px', marginBottom: '20px'}} size="large"></Button>
+      <Spin spinning={loading}>
+        <Form layout="vertical" form={form} onFinish={handleSubmit}>
+          <Row gutter={[16, 16]}>
+          {campos.map((campo) => {
+              const { type, label, key, prefix, disabled, required, maxLength, minLength, options, placeholder } = campo;
+              var prefixSymbol = null;
+              if(prefix){
+                if(prefix === "percentage")
+                  prefixSymbol = <PercentageOutlined />
+                else
+                  prefixSymbol = prefix;
+              }
+              return (
+                <Col xs={24} md={12} key={campo.key}>
+                  <Form.Item key={key} name={key} label={label} valuePropName={type === "boolean" ? "checked" : "value"} rules={[
+                    required ? { required: required, message: "Por favor, preencha o campo " + label } : null,
+                    maxLength ? { max: maxLength, message: 'Número máximo de caracteres excedido: ' + maxLength } : null,
+                    minLength ? { min: minLength, message: 'Número mínimo de caracteres requerido: ' + minLength} : null,
+                    ]}>
+                        {
+                          type === "boolean" ? (
+                            disableAll ? <Checkbox disabled={true} /> : <Checkbox disabled={disabled} />
+                          ):
+                          type === "textArea" ? (
+                            disableAll ? <TextArea disabled={true} rows={4} /> : <TextArea disabled={disabled} rows={4} />
+                          ):
+                          type === "select" ? (
+                            disableAll ? <Select disabled={true} options={options} placeholder={placeholder} /> : <Select disabled={disabled} options={options} placeholder={placeholder} /> 
+                          ):
+                          disableAll ? <Input type={type} disabled={true} prefix={prefixSymbol} /> : <Input type={type} disabled={disabled} prefix={prefixSymbol} />
+                        }
+                  </Form.Item>
+                </Col>
+              );
+            })}
+            <Form.Item>
+              <Button type="primary" disabled={disableAll} htmlType="submit" loading={loading}>
+                Enviar
+              </Button>
+            </Form.Item>
+          </Row>
+        </Form>
+      </Spin>
+    </>
   );
 };
 

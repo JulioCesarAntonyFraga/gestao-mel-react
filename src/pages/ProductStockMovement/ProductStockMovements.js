@@ -56,7 +56,7 @@ const ProductStockMovements = () => {
     };
     
     const handleEdit = (id) => {
-        navigate(`${baseRoute}/${id}`);
+        navigate(`/estoque/${id}`);
     };
       
     const fields = [
