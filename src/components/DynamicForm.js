@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Checkbox, Row, Col, message, Spin, DatePicker } from "antd";
+import { Form, Input, Button, Checkbox, Row, Col, message, Spin, Select } from "antd";
 import {PercentageOutlined} from "@ant-design/icons"
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -17,17 +17,23 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect }) => {
   React.useEffect(() => {
     if (id) {
       api.get(`/${baseRoute}/${id}`).then((response) => {
-        form.setFieldsValue(response.data);
-        console.log(response.data);
+        const data = response.data;
+        const updatedFields = {};
+        campos.forEach((campo) => {
+          const { key, type, options } = campo;
+          if (type === "select") {
+            const value = data[key];
+            const option = options.find((opt) => opt.value === value);
+            updatedFields[key] = option ? option.value : undefined;
+          } else {
+            updatedFields[key] = data[key];
+          }
+        });
+        form.setFieldsValue(updatedFields);
       });
     }
     setLoading(false);
-  }, [id, form]);
-
-  // const handleDateChange = (date, field) => {
-  //   const formattedDate = date.format('YYYY-MM-DD HH:mm:ss');
-  //   form.setFieldsValue({ [field.key]: formattedDate });
-  // };
+  }, [id, form, campos]);
 
 
   const handleSubmit = (values) => {
@@ -54,8 +60,8 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect }) => {
     <Spin spinning={loading}>
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <Row gutter={[16, 16]}>
-          {campos.map((campo) => {
-            const { type, label, key, prefix, disabled, required, maxLength, minLength } = campo;
+        {campos.map((campo) => {
+            const { type, label, key, prefix, disabled, required, maxLength, minLength, options, placeholder } = campo;
             var prefixSymbol = null;
             if(prefix){
               if(prefix === "percentage")
@@ -65,7 +71,7 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect }) => {
             }
             return (
               <Col xs={24} md={12} key={campo.key}>
-                <Form.Item key={key} name={key} label={label} valuePropName={campo.tipo === "boolean" ? "checked" : "value"} rules={[
+                <Form.Item key={key} name={key} label={label} valuePropName={type === "boolean" ? "checked" : "value"} rules={[
                   required ? { required: required, message: "Por favor, preencha o campo " + label } : null,
                   maxLength ? { max: maxLength, message: 'Número máximo de caracteres excedido: ' + maxLength } : null,
                   minLength ? { min: minLength, message: 'Número mínimo de caracteres requerido: ' + minLength} : null,
@@ -77,6 +83,9 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect }) => {
                         ):
                         type === "textArea" ? (
                           <TextArea disabled={disabled} rows={4} />
+                        ):
+                        type === "select" ? (
+                          <Select disabled={disabled} options={options} placeholder={placeholder} />
                         ):
                         <Input type={type} disabled={disabled} prefix={prefixSymbol} />
                       }

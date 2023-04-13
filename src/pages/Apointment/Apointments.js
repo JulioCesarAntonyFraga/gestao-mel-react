@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { get, remove } from "../../services/api";
 import generateTable from '../../components/Table';
 import { message, Button } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Apointments = () => {
     const baseRoute = '/Apointments';
@@ -56,7 +56,7 @@ const Apointments = () => {
     };
     
     const handleEdit = (id) => {
-        navigate(`${baseRoute}/${id}`);
+        navigate(`/atendimentos/${id}`);
     };
       
     const fields = [
@@ -65,9 +65,13 @@ const Apointments = () => {
             title: 'ID',
         },
         {
-            dataIndex: 'dateTime',
-            title: 'Data/Horário',
-            mask: 'timestamp'
+            dataIndex: 'date',
+            title: 'Data',
+            mask: 'date'
+        },
+        {
+            dataIndex: 'time',
+            title: 'Horário',
         },
         {
             dataIndex: 'price',
@@ -91,7 +95,9 @@ const Apointments = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h2 style={{ textAlign: 'left', marginBottom: '16px' }}>Atendimentos</h2>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button type="primary">Cadastrar</Button>
+                <Link to="/atendimentos/novo">
+                    <Button type="primary">Cadastrar</Button>
+                </Link>
             </div>
         </div>
         

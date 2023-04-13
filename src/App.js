@@ -16,6 +16,7 @@ import ProductStockMovements from './pages/ProductStockMovement/ProductStockMove
 import Home from './pages/Home';
 import ProductForm from './pages/Product/ProductForm';
 import CustomerForm from './pages/Customer/CustomerForm';
+import ApointmentForm from './pages/Apointment/ApointmentForm';
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
                 {/* <Route path="/clientes/:id" element={<PrivateRoute element={<FormPage />} />} /> */}
 
                 <Route path="/atendimentos" element={<PrivateRoute element={<Apointments />} />} />
-
+                <Route path="/atendimentos/:id" element={<PrivateRoute element={<ApointmentForm />} />} />
+                <Route path="/atendimentos/novo" element={<PrivateRoute element={<ApointmentForm />} />} />
 
                 <Route path="/estoque" element={<PrivateRoute element={<ProductStockMovements />} />} />
 

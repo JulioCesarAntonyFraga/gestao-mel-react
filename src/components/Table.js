@@ -34,6 +34,7 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
       let value = text;
       if (typeof text === 'number') {
         value = text.toFixed(2);
+        value = value.replace('.', ',');
       }
       if (typeof text === 'boolean') {
         if (value === true)
