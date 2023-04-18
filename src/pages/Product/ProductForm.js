@@ -15,13 +15,13 @@ const ProductForm = (props) => {
 
   const campos = [
     { type: "text", label: "ID", key: "id", disabled: true, },
-    { type: "text", label: "Nome", key: "name", maxLength: 40, required: true, minLength: 5 },
-    { type: "textArea", label: "Descrição", key: "description", maxLength: 250, required: false },
+    { type: "text", label: "Nome", key: "name", maxLength: 40, required: true, minLength: 5 }, 
     { type: "number", label: "Custo", key: "coust", prefix: "R$", required: true },
     { type: "number", label: "Preço de venda", key: "price", prefix: "R$", required: true },
     { type: "number", label: "Estoque", key: "stock", required: true, disabled: stockReadOnly  },
     { type: "number", label: "Porcentagem De Lucro", key: "profitPercentage", prefix: "percentage", disabled: true, required: false },
     { type: "boolean", label: "Material", key: "isRawMaterial" },
+    { type: "textArea", label: "Descrição", key: "description", maxLength: 250, required: false },
   ];
 
   const handleSubmit = async (payload, isEdit) => {

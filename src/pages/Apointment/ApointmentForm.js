@@ -27,7 +27,7 @@ const ApointmentForm = (props) => {
     { type: "text", label: "ID", key: "id", disabled: true, },
     { type: "select", label: "Cliente", key: "customerId", required: true,
       options: customerOptions, placeholder: 'Selecione Um Cliente' },
-    { type: "select", label: "Método De Pagamento", key: "paymentMethod", required: true,
+    { type: "select", label: "Método De Pagamento", key: "paymentMethod", required: false,
     options: [
       {value: 0, label: 'PIX'},
       {value: 1, label: 'Cartão'},
@@ -36,6 +36,7 @@ const ApointmentForm = (props) => {
     { type: "date", label: "Data", key: "date", required: true },
     { type: "time", label: "Hora", key: "time", required: true },
     { type: "number", label: "Preço", key: "price", required: true},
+    { type: "textArea", label: "Observações", key: "observations", maxLength: 250, required: false },
     { type: "boolean", label: "Pago", key: "payed", },
     { type: "boolean", label: "Atendido", key: "done" },
   ];
