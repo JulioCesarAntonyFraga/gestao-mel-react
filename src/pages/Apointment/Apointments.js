@@ -65,6 +65,14 @@ const Apointments = () => {
             title: 'ID',
         },
         {
+            dataIndex: 'customerId',
+            title: 'Cliente',
+            getByIdRoute: 'Customers',
+            getByIdKey: 'name',
+            mask: 'getById',
+            sorterType: 'getById',
+        },
+        {
             dataIndex: 'date',
             title: 'Data',
             mask: 'date',
@@ -88,14 +96,6 @@ const Apointments = () => {
         {
             dataIndex: 'done',
             title: 'Atendido',
-        },
-        {
-            dataIndex: 'customerId',
-            title: 'Cliente',
-            getByIdRoute: 'Customers',
-            getByIdKey: 'name',
-            mask: 'getById',
-            sorterType: 'getById',
         }
       ];
 
