@@ -13,10 +13,12 @@ const ApointmentForm = (props) => {
       const response = await api.get('/customers');
       const customers = response.data;
 
-      const options = customers.map(customer => {
-        return { value: customer.id, label: customer.name };
-      });
-
+      const options = customers
+        .map(customer => {
+          return { value: customer.id, label: customer.name };
+        })
+        .sort((a, b) => a.label.localeCompare(b.label));
+        
       setCustomerOptions(options);
     };
 
