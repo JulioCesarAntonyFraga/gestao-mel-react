@@ -181,7 +181,6 @@ const DynamicForm = ({ campos, onSubmit, baseRoute, redirect, isReadOnly }) => {
       
       api.get(`/${baseRoute}/${id}`).then((response) => {
         const data = response.data;
-        console.log('Received: ', data);
         const updatedFields = {};
         campos.forEach((campo) => {
           const { key, type, options } = campo;

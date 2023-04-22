@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState  } from 'react'
 import { get, remove } from "../../services/api";
 import GenerateTable from '../../components/GenerateTable';
 import { message, Button } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductStockMovements = () => {
     const baseRoute = '/ProductStockMovements';
@@ -39,20 +39,7 @@ const ProductStockMovements = () => {
       }, []);
 
     const handleDelete = (id) => {
-        setLoading(true);
-        try{
-            remove(baseRoute, id).then(() => {
-                get(baseRoute).then((response) => {
-                    setData(response);
-                    setLoading(false);
-                    successMessage('Deletado com sucesso');
-                });
-            });
-        }
-        catch{
-            errorMessage('Algo deu errado');
-            setLoading(false);
-        }
+        errorMessage('Não é possível excluir Movimentações De Estoque');
     };
     
     const handleEdit = (id) => {
@@ -80,7 +67,15 @@ const ProductStockMovements = () => {
             title: 'Quantidade',
             sorterType: 'numeric',
             mask: 'int',
-        }
+        },
+        {
+            dataIndex: 'productId',
+            title: 'Produto',
+            getByIdRoute: 'Products',
+            getByIdKey: 'name',
+            mask: 'getById',
+            sorterType: 'getById',
+        },
       ];
 
   return (
@@ -90,7 +85,9 @@ const ProductStockMovements = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h2 style={{ textAlign: 'left', marginBottom: '16px' }}>Movimentações De Estoque</h2>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button type="primary">Cadastrar</Button>
+                <Link to="/estoque/novo">
+                    <Button type="primary">Cadastrar</Button>
+                </Link>
             </div>
         </div>
         <GenerateTable dataList={data} fieldsList={fields} loading={loading} handleDelete={handleDelete} handleEdit={handleEdit} successMessage={successMessage} />

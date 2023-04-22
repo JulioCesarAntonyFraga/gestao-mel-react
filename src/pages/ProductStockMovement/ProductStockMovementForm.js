@@ -3,34 +3,40 @@ import DynamicForm from "../../components/DynamicForm";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
 
-const SaleForm = (props) => {
+const ProductStockMovementForm = (props) => {
   const { id } = useParams();
-  const baseRoute = 'sales'
-  const [customerOptions, setCustomerOptions] = useState([]);
+  const baseRoute = 'ProductStockMovements'
+  const [productOptions, setProductOptions] = useState([]);
+  const [isReadOnly, setIsReadOnly] = useState(false);
 
   useEffect(() => {
+    if(id)
+      setIsReadOnly(true);
+
     const fetchCustomers = async () => {
-      const response = await api.get('/customers');
-      const customers = response.data;
+      const response = await api.get('/products');
+      const products = response.data;
 
-      const options = customers.map(customer => {
-        return { value: customer.id, label: customer.name };
-      });
-
-      setCustomerOptions(options);
+      const options = products
+          .map(product => {
+            return { value: product.id, label: product.name };
+          })
+          .sort((a, b) => a.label.localeCompare(b.label));
+          
+      setProductOptions(options);
     };
 
     fetchCustomers();
   }, []);
 
   const campos = [
-    { type: "text", label: "ID", key: "id", disabled: true, },
-    { type: "select", label: "Cliente", key: "customerId", required: true,
-      options: customerOptions, placeholder: 'Selecione Um Cliente' },
-    { type: "number", label: "Custo Total", key: "totalCoust", disabled: true, required: false, prefix: 'R$' },
-    { type: "number", label: "Preço Total", key: "totalCoust", disabled: true, required: false, prefix: 'R$' },
-    { type: "number", label: "Desconto", key: "discountPercentage", prefix: '%', required: false},
-    { type: "number", label: "Lucro", key: "profit", prefix: 'R$', required: false},
+    { type: "text", label: "ID", key: "id", disabled: true, readOnly: isReadOnly },
+    { type: "select", label: "Produto", key: "productId", required: true, options: productOptions, placeholder: 'Selecione Um Produto', readOnly: isReadOnly },
+    { type: "select", label: "Tipo De Movimentação", key: "type", required: true, options: [
+      { value: 0, label: 'Adição' },
+      { value: 1, label: 'Subtração' },
+    ], placeholder: 'Selecione Um Tipo', readOnly: isReadOnly },
+    { type: "number", label: "Quantidade", key: "amount", required: true, readOnly: isReadOnly },
   ];
 
   const handleSubmit = async (payload, isEdit) => {
@@ -42,7 +48,7 @@ const SaleForm = (props) => {
     }
   };
 
-  return <DynamicForm campos={campos} onSubmit={handleSubmit} id={id} baseRoute={baseRoute} redirect='vendas' />;
+  return <DynamicForm campos={campos} onSubmit={handleSubmit} id={id} baseRoute={baseRoute} redirect='estoque' isReadOnly={isReadOnly} />;
 };
 
-export default SaleForm;
+export default ProductStockMovementForm;

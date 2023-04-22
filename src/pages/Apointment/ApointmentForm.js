@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import api from "../../services/api";
 
 const ApointmentForm = (props) => {
-  debugger;
   const { id } = useParams();
   const baseRoute = 'apointments'
   const [customerOptions, setCustomerOptions] = useState([]);
@@ -53,7 +52,6 @@ const ApointmentForm = (props) => {
       await api.put(`/${baseRoute}/${id}`, payload);
     }
   };
-  debugger;
   return <DynamicForm campos={campos} onSubmit={handleSubmit} id={id} baseRoute={baseRoute} redirect='atendimentos' />;
 };
 
