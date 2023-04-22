@@ -38,6 +38,7 @@ const ApointmentForm = (props) => {
     { type: "number", label: "Preço", key: "price", required: true},
     { type: "textArea", label: "Observações", key: "observations", maxLength: 250, required: false },
     { type: "boolean", label: "Pago", key: "payed", },
+    { type: "imageList", label: "Imagens", key: "pictures", },
     { type: "boolean", label: "Atendido", key: "done" },
   ];
 

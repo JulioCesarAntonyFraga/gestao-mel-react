@@ -67,6 +67,13 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
         if (field.mask === "int"){
           value = text.toFixed(0);
         }
+        if (field.mask === "list"){
+          let finalValue = '| ';
+          value.map((item) => {
+            finalValue += item + ' | ';
+          });
+          value = finalValue;
+        }
         if (field.mask === "timestamp"){
           const fixedDate = value.replace('Timestamp: ', '');
           const date = new Date(fixedDate);

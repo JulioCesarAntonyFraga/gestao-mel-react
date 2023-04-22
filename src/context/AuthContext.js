@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import app from '../firebase';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export const AuthContext = createContext();
 
@@ -27,6 +29,17 @@ const AuthProvider = ({ children }) => {
       setToken(response.data.token)
       setIsAuthenticated(true);
       localStorage.setItem('selectedItem', 1);
+      const auth = getAuth(app);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          // const user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+        });
     }
     catch(error){
       localStorage.removeItem("token");
