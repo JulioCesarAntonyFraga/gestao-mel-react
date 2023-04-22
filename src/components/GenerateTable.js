@@ -2,9 +2,20 @@ import { Table } from 'antd';
 import { Popconfirm } from 'antd';
 import { CheckCircleTwoTone, CloseCircleTwoTone, InfoCircleOutlined, DeleteTwoTone, CopyOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import api from '../services/api';
+import React, { useState } from 'react';
 
-function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, successMessage) {
+const GenerateTable = ({dataList, fieldsList, loading, handleDelete, handleEdit, successMessage}) => {
+  const [getByIdValues, setGetByIdValues] = useState({});
 
+  const handleGetByIdValue = async (id, getByIdRoute, getByIdKey) => {
+    const response = await api.get(`/${getByIdRoute}/${id}`);
+    const data = response.data;
+    setGetByIdValues(prevValues => ({
+      ...prevValues,
+      [id]: data[getByIdKey]
+    }));
+  };
   // This is the function we wrote earlier
   async function copyTextToClipboard(text) {
     if ('clipboard' in navigator) {
@@ -31,6 +42,8 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
   const columns = fieldsList.map(field => ({
     title: field.title,
     dataIndex: field.dataIndex,
+    getByIdKey: field.getByIdKey,
+    getByIdRoute: field.getByIdRoute,
     sorter: (a, b) => {
       if (field.sorterType === 'numeric') {
         return a[field.dataIndex] - b[field.dataIndex];
@@ -38,6 +51,11 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
         return a[field.dataIndex].localeCompare(b[field.dataIndex]);
       } else if (field.sorterType === 'date') {
         return moment(a[field.dataIndex]).unix() - moment(b[field.dataIndex]).unix();
+      }
+      else if (field.sorterType === 'getById') {
+        const nameA = getByIdValues[a[field.dataIndex]]?.toUpperCase() ?? '';
+        const nameB = getByIdValues[b[field.dataIndex]]?.toUpperCase() ?? '';
+        return nameA.localeCompare(nameB);
       }
       return 0;
     },
@@ -66,6 +84,15 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
         }
         if (field.mask === "int"){
           value = text.toFixed(0);
+        }
+        if (field.mask === "getById") {
+          const getByIdValue = getByIdValues[value];
+          if (getByIdValue === undefined) {
+            handleGetByIdValue(value, field.getByIdRoute, field.getByIdKey);
+            return "Carregando...";
+          } else {
+            return getByIdValue;
+          }
         }
         if (field.mask === "list"){
           let finalValue = '| ';
@@ -114,10 +141,9 @@ function generateTable(dataList, fieldsList, loading, handleDelete, handleEdit, 
   };
 
   columns.push(actionColumn);
-
   return (
     <Table dataSource={dataList} columns={columns} loading={loading} responsive pagination={{ pageSize: 10 }} scroll={{ x: 'max-content' }} sortDirections={['ascend', 'descend']} defaultSortOrder="ascend" />
-  );
+  )
 }
 
-export default generateTable;
+export default GenerateTable;

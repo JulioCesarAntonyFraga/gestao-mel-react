@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { get, remove } from "../../services/api";
-import generateTable from '../../components/Table';
+import GenerateTable from '../../components/GenerateTable';
 import { message, Button } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 
@@ -89,6 +89,14 @@ const Apointments = () => {
             dataIndex: 'done',
             title: 'Atendido',
         },
+        {
+            dataIndex: 'customerId',
+            title: 'Cliente',
+            getByIdRoute: 'Customers',
+            getByIdKey: 'name',
+            mask: 'getById',
+            sorterType: 'getById',
+        }
       ];
 
   return (
@@ -104,7 +112,7 @@ const Apointments = () => {
             </div>
         </div>
         
-        {generateTable(data, fields, loading, handleDelete, handleEdit, successMessage)}
+        <GenerateTable dataList={data} fieldsList={fields} loading={loading} handleDelete={handleDelete} handleEdit={handleEdit} successMessage={successMessage} />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import generateTable from '../../components/Table';
+import GenerateTable from '../../components/GenerateTable';
 import { message, Button } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { get, remove } from "../../services/api";
@@ -88,7 +88,7 @@ const Users = () => {
                 <Button type="primary">Cadastrar</Button>
             </div>
         </div>
-        {generateTable(data, fields, loading, handleDelete, handleEdit, successMessage)}
+        <GenerateTable dataList={data} fieldsList={fields} loading={loading} handleDelete={handleDelete} handleEdit={handleEdit} successMessage={successMessage} />
     </div>
   )
 }
