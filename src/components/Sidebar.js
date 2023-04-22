@@ -1,4 +1,4 @@
-import { UserOutlined, TeamOutlined, HomeOutlined, ShoppingCartOutlined, DollarOutlined, CalendarOutlined, DropboxOutlined, LoginOutlined } from '@ant-design/icons';
+import { UserOutlined, TeamOutlined, HomeOutlined, ShoppingCartOutlined, DollarOutlined, CalendarOutlined, DropboxOutlined, LoginOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -70,12 +70,18 @@ const Sidebar = () => {
             </Link>
           </Menu.Item>
           <Menu.Item key="7"  >
+            <Link to="/manutencoes">
+              <ClockCircleOutlined />
+              <span>Manutenções</span>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="8"  >
             <Link to="/estoque">
               <DropboxOutlined />
               <span>Movimentações</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="8" onClick={() => SignOut()}>
+          <Menu.Item key="9" onClick={() => SignOut()}>
             <LoginOutlined />
             <span>Logout</span>
           </Menu.Item>

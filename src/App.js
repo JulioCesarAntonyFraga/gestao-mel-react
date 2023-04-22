@@ -19,6 +19,7 @@ import CustomerForm from './pages/Customer/CustomerForm';
 import ApointmentForm from './pages/Apointment/ApointmentForm';
 import ProductStockMovementForm from './pages/ProductStockMovement/ProductStockMovementForm';
 import SaleForm from './pages/Sale/SaleForm';
+import Warnings from './pages/Warning/Warnings';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/vendas/:id" element={<PrivateRoute element={<SaleForm />} />} />
                 <Route path="/vendas/novo" element={<PrivateRoute element={<SaleForm />} />} />
 
+                <Route path="/manutencoes" element={<PrivateRoute element={<Warnings />} />} />
                 {/* <Route path="/produtos/:id"/> */}
               </Routes>
             </main>
