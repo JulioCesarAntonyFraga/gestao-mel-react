@@ -73,6 +73,11 @@ const Apointments = () => {
             sorterType: 'getById',
         },
         {
+            dataIndex: 'apointmentTypeName',
+            title: 'Tipo',
+            sorterType: 'text',
+        },
+        {
             dataIndex: 'date',
             title: 'Data',
             mask: 'date',

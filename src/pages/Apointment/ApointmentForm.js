@@ -35,13 +35,27 @@ const ApointmentForm = (props) => {
       {value: 1, label: 'Cartão'},
       {value: 2, label: 'Dinheiro'}
     ], placeholder: 'Selecione Um Método' },
+    { type: "select", label: "Tipo De Atendimento", key: "apointmentType", required: true,
+    options: [
+      {value: 0, label: 'Manicure ou Pedicure'},
+      {value: 1, label: 'Pé + Mão'},
+      {value: 2, label: 'Spa dos pés'},
+      {value: 3, label: 'Esmaltação Semi Permanente'},
+      {value: 4, label: 'Banho De Gel'},
+      {value: 5, label: 'Manutenção Banho De Gel'},
+      {value: 6, label: 'Alongamento de fibra'},
+      {value: 7, label: 'Manutenção Alongamento de fibra'},
+      {value: 8, label: 'Postiças'},
+
+    ], placeholder: 'Selecione Um Tipo' },
     { type: "date", label: "Data", key: "date", required: true },
     { type: "time", label: "Hora", key: "time", required: true },
     { type: "number", label: "Preço", key: "price", required: true},
     { type: "textArea", label: "Observações", key: "observations", maxLength: 250, required: false },
+    { type: "boolean", label: "Precisa De Manutenção", key: "needsMaintance", },
     { type: "boolean", label: "Pago", key: "payed", },
-    { type: "imageList", label: "Imagens", key: "pictures", },
     { type: "boolean", label: "Atendido", key: "done" },
+    { type: "imageList", label: "Imagens", key: "pictures", },
   ];
 
   const handleSubmit = async (payload, isEdit) => {
